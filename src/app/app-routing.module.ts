@@ -6,6 +6,12 @@ const routes: Routes = [
   {
     path: '',
     component: SkeletonComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./modules/characters/characters.module').then(m => m.CharactersModule)
+      }
+    ]
   }
 ];
 

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <img class="mx-auto d-block img-fluid" src="assets/logo/logo-2.png" width="500" alt="Rick and Morty">
+    </div>
+  </div>
+  <form action="">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+          <input type="text" class="form-control" placeholder="Filter by name..." aria-label="Filter by name..."
+            aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <select class="form-select mb-3" aria-label="Default select example ">
+          <option selected disabled>Species</option>
+          <option value="1">One</option>
+        </select>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <select class="form-select mb-3" aria-label="Default select example">
+          <option selected disabled>Gender</option>
+          <option value="1">One</option>
+
+        </select>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <select class="form-select mb-3" aria-label="Default select example">
+          <option selected disabled>Status</option>
+          <option value="1">One</option>
+        </select>
+      </div>
+
+    </div>
+  </form>
+  <div class="row my-5">
+    <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let character of charactersList">
+      <div class="card mb-3 w-100 shadow" style="width: 18rem;">
+        <img src="{{character.image}}" class="card-img-top" alt="character">
+        <div class="card-body">
+          <h5 class="card-title">{{character.name}}</h5>
+          <p class="card-text">{{character.status}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-outline-primary mb-5 mx-auto d-block shadow" (click)="loadMoreCharacters()">Load more</button>
+</div>
