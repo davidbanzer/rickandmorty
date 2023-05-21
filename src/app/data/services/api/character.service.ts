@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,12 +13,30 @@ export class CharacterService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getCharacters(page: number = 1): Observable<ApiResponse<Character[]>>{
-    return this.httpClient.get<ApiResponse<Character[]>>(this.apiUrl + '/character/?page=' + page);
+  getCharacters(page?: number, name?: string, species?: string, gender?: string, status?: string ): Observable<ApiResponse<Character[]>>{
+    let params = new HttpParams();
+    if(page){
+      params = params.append('page', page);
+    }
+    if(name){
+      params = params.append('name', name);
+    }
+    if(species){
+      params = params.append('species', species);
+    }
+    if(gender){
+      params = params.append('gender', gender);
+    }
+    if(status){
+      params = params.append('status', status);
+    }
+    return this.httpClient.get<ApiResponse<Character[]>>(this.apiUrl + '/character/', {params: params});
   }
 
   getCharacter(id: number){
     return this.httpClient.get(this.apiUrl + '/character/' + id);
   }
+
+
 
 }
