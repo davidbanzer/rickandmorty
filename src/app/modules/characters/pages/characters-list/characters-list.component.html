@@ -15,21 +15,23 @@
     <div class="col-lg-3 col-md-6 col-sm-12">
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon2"><i class="bi bi-search"></i></span>
-        <input type="text" class="form-control" placeholder="Specie" aria-label="Specie"
-          aria-describedby="basic-addon2" [(ngModel)]="specieFilter">
+        <input type="text" class="form-control" placeholder="Specie" aria-label="Specie" aria-describedby="basic-addon2"
+          [(ngModel)]="specieFilter">
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12">
       <select class="form-select mb-3" aria-label="Gender" [(ngModel)]="genderFilter">
         <option selected disabled>Gender</option>
-        <option *ngFor="let gender of enumValues(genderEnum)" [value]="gender">{{gender == '' ? 'All' : capitalizeFirstLetter(gender)}}</option>
+        <option *ngFor="let gender of enumValues(genderEnum)" [value]="gender">{{gender == '' ? 'All' :
+          capitalizeFirstLetter(gender)}}</option>
 
       </select>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12">
       <select class="form-select mb-3" aria-label="Status" [(ngModel)]="statusFilter">
         <option selected disabled>Status</option>
-        <option *ngFor="let status of enumValues(statusEnum)" [value]="status">{{status == '' ? 'All' : capitalizeFirstLetter(status)}}</option>
+        <option *ngFor="let status of enumValues(statusEnum)" [value]="status">{{status == '' ? 'All' :
+          capitalizeFirstLetter(status)}}</option>
       </select>
     </div>
 
@@ -49,13 +51,48 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mb-5">
-    <div class="col">
-      <div class="d-flex justify-content-center gap-3">
-        <button class="btn btn-outline-primary shadow" (click)="previousPage()" [disabled]="!this.pageInformation.prev">Previous</button>
-        <button class="btn btn-outline-primary shadow" (click)="nextPage()" [disabled]="!this.pageInformation.next">Next</button>
+    <ng-container *ngIf="charactersList.length === 0 || isLoading">
+      <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let skeleton of [1,2,3,4,5,6,7,8]">
+        <div class="card mb-3 w-100 shadow" style="width: 18rem;">
+          <div class="card-1 w-100"></div>
+          <div class="card-2 p-3">
+            <div class="row">
+              <div class="col-4">
+                <div class="inner-card animate-pulse"></div>
+              </div>
+              <div class="col-8">
+                <div class="inner-card animate-pulse"></div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-6">
+                <div class="inner-card animate-pulse"></div>
+              </div>
+              <div class="col-6">
+                <div class="inner-card animate-pulse"></div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-2">
+                <div class="inner-card animate-pulse"></div>
+              </div>
+              <div class="col-10">
+                <div class="inner-card animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </ng-container>
+  </div>
+</div>
+<div class="row mb-5">
+  <div class="col">
+    <div class="d-flex justify-content-center gap-3">
+      <button class="btn btn-outline-primary shadow" (click)="previousPage()"
+        [disabled]="!this.pageInformation.prev">Previous</button>
+      <button class="btn btn-outline-primary shadow" (click)="nextPage()"
+        [disabled]="!this.pageInformation.next">Next</button>
     </div>
   </div>
 </div>

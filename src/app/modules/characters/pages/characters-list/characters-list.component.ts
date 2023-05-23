@@ -22,6 +22,7 @@ export class CharactersListComponent implements OnInit{
   characterSuscription: Subscription | undefined;
   genderEnum = Gender;
   statusEnum = Status;
+  isLoading: boolean;
   
 
   constructor(private characterService: CharacterService) { 
@@ -36,6 +37,7 @@ export class CharactersListComponent implements OnInit{
     this.genderFilter = Gender.All;
     this.nameFilter = '';
     this.specieFilter = '';
+    this.isLoading = true;
 
   }
 
@@ -44,9 +46,11 @@ export class CharactersListComponent implements OnInit{
   }
 
   loadCharacters(): void{
+    this.isLoading = true;
     this.characterSuscription = this.characterService.getCharacters(this.currentPage,this.nameFilter,this.specieFilter,this.genderFilter,this.statusFilter).subscribe((response) => {
       this.charactersList = response.results;
       this.pageInformation = response.info;
+      this.isLoading = false;
     });
   }
 
@@ -57,12 +61,14 @@ export class CharactersListComponent implements OnInit{
 
   nextPage(): void{
     if(this.pageInformation.next){
+      this.charactersList = [];
       this.currentPage++;
       this.loadCharacters();
     }
   }
   previousPage(): void{
     if(this.currentPage > 1){
+      this.charactersList = [];
       this.currentPage--;
       this.loadCharacters();
     }
