@@ -13,11 +13,11 @@
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12">
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon2"><i class="bi bi-search"></i></span>
-        <input type="text" class="form-control" placeholder="Specie" aria-label="Specie" aria-describedby="basic-addon2"
-          [(ngModel)]="specieFilter">
-      </div>
+      <select class="form-select mb-3" aria-label="Specie" [(ngModel)]="specieFilter">
+        <option selected disabled>Specie</option>
+        <option *ngFor="let specie of enumValues(specieEnum)" [value]="specie">{{specie == '' ? 'All' : capitalizeFirstLetter(specie)}}</option>
+
+      </select>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-12">
       <select class="form-select mb-3" aria-label="Gender" [(ngModel)]="genderFilter">
@@ -40,6 +40,12 @@
     <div class="col d-flex justify-content-end">
       <button class="btn btn-primary shadow" (click)="applyFilters()">Search</button>
     </div>
+    
+    <div *ngIf="alertService.activeAlert" class="alert alert-{{alertService.activeAlert.type}} alert-dismissible fade show mt-3" role="alert">
+      {{ alertService.activeAlert.message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="alertService.hideAlert()"></button>
+    </div>
+
   </div>
   <div class="row mb-5">
     <div class="col-lg-3 col-md-6 col-sm-12" *ngFor="let character of charactersList">
@@ -95,4 +101,5 @@
         [disabled]="!this.pageInformation.next">Next</button>
     </div>
   </div>
+
 </div>
