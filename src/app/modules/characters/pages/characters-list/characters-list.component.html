@@ -15,7 +15,8 @@
     <div class="col-lg-3 col-md-6 col-sm-12">
       <select class="form-select mb-3" aria-label="Specie" [(ngModel)]="specieFilter">
         <option selected disabled>Specie</option>
-        <option *ngFor="let specie of enumValues(specieEnum)" [value]="specie">{{specie == '' ? 'All' : capitalizeFirstLetter(specie)}}</option>
+        <option *ngFor="let specie of enumValues(specieEnum)" [value]="specie">{{specie == '' ? 'All' :
+          capitalizeFirstLetter(specie)}}</option>
 
       </select>
     </div>
@@ -40,10 +41,12 @@
     <div class="col d-flex justify-content-end">
       <button class="btn btn-primary shadow" (click)="applyFilters()">Search</button>
     </div>
-    
-    <div *ngIf="alertService.activeAlert" class="alert alert-{{alertService.activeAlert.type}} alert-dismissible fade show mt-3" role="alert">
+
+    <div *ngIf="alertService.activeAlert"
+      class="alert alert-{{alertService.activeAlert.type}} alert-dismissible fade show mt-3" role="alert">
       {{ alertService.activeAlert.message }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="alertService.hideAlert()"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+        (click)="alertService.hideAlert()"></button>
     </div>
 
   </div>
@@ -91,15 +94,14 @@
       </div>
     </ng-container>
   </div>
-</div>
-<div class="row mb-5">
-  <div class="col">
-    <div class="d-flex justify-content-center gap-3">
-      <button class="btn btn-outline-primary shadow" (click)="previousPage()"
-        [disabled]="!this.pageInformation.prev">Previous</button>
-      <button class="btn btn-outline-primary shadow" (click)="nextPage()"
-        [disabled]="!this.pageInformation.next">Next</button>
+  <div class="row mb-5">
+    <div class="col">
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-outline-primary shadow" (click)="previousPage()"
+          [disabled]="!this.pageInformation.prev">Previous</button>
+        <button class="btn btn-outline-primary shadow" (click)="nextPage()"
+          [disabled]="!this.pageInformation.next">Next</button>
+      </div>
     </div>
   </div>
-
 </div>
