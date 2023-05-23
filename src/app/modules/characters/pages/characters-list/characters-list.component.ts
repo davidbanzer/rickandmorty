@@ -5,6 +5,8 @@ import { Info } from 'src/app/data/interfaces/Info';
 import { CharacterService } from 'src/app/data/services/api/character.service';
 import {Gender} from 'src/app/data/constants/character/Gender';
 import {Status} from 'src/app/data/constants/character/Status';
+import {Specie} from 'src/app/data/constants/character/Specie';
+import { AlertService } from 'src/app/shared/services/alert.service';
 @Component({
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
@@ -22,9 +24,10 @@ export class CharactersListComponent implements OnInit{
   characterSuscription: Subscription | undefined;
   genderEnum = Gender;
   statusEnum = Status;
-  
+  specieEnum = Specie;
 
-  constructor(private characterService: CharacterService) { 
+
+  constructor(private characterService: CharacterService, public alertService: AlertService) { 
     this.charactersList = [];
     this.pageInformation = {
       count: 0,
@@ -32,10 +35,10 @@ export class CharactersListComponent implements OnInit{
       next: '',
     }
     this.currentPage = 1;
-    this.statusFilter = Status.All;
-    this.genderFilter = Gender.All;
+    this.statusFilter = this.statusEnum.All;
+    this.genderFilter = this.genderEnum.All;
+    this.specieFilter = this.specieEnum.All;
     this.nameFilter = '';
-    this.specieFilter = '';
 
   }
 
@@ -47,6 +50,9 @@ export class CharactersListComponent implements OnInit{
     this.characterSuscription = this.characterService.getCharacters(this.currentPage,this.nameFilter,this.specieFilter,this.genderFilter,this.statusFilter).subscribe((response) => {
       this.charactersList = response.results;
       this.pageInformation = response.info;
+      this.alertService.hideAlert();
+    }, (error) => {
+      this.alertService.showAlert('warning', error.error.error);
     });
   }
 
