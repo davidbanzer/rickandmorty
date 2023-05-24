@@ -6,7 +6,8 @@ import { CharacterService } from 'src/app/data/services/api/character.service';
 import {Gender} from 'src/app/data/constants/character/Gender';
 import {Status} from 'src/app/data/constants/character/Status';
 import {Specie} from 'src/app/data/constants/character/Specie';
-import { AlertService } from 'src/app/shared/services/alert.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
+
 @Component({
   selector: 'app-characters-list',
   templateUrl: './characters-list.component.html',
@@ -28,7 +29,7 @@ export class CharactersListComponent implements OnInit{
   isLoading: boolean;
 
 
-  constructor(private characterService: CharacterService, public alertService: AlertService) { 
+  constructor(private characterService: CharacterService, private toastService: ToastService) { 
     this.charactersList = [];
     this.pageInformation = {
       count: 0,
@@ -42,7 +43,6 @@ export class CharactersListComponent implements OnInit{
     this.nameFilter = '';
     this.specieFilter = '';
     this.isLoading = true;
-
   }
 
   ngOnInit(): void {
@@ -51,13 +51,14 @@ export class CharactersListComponent implements OnInit{
 
   loadCharacters(): void{
     this.isLoading = true;
+    const toastElement = document.getElementById('liveToast') as HTMLElement;
     this.characterSuscription = this.characterService.getCharacters(this.currentPage,this.nameFilter,this.specieFilter,this.genderFilter,this.statusFilter).subscribe((response) => {
       this.charactersList = response.results;
       this.pageInformation = response.info;
       this.isLoading = false;
-      this.alertService.hideAlert();
     }, (error) => {
-      this.alertService.showAlert('warning', error.error.error);
+      this.toastService.showToast(toastElement, 'Error', error.error.error);
+      this.isLoading = false;
     });
   }
 
